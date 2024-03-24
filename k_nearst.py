@@ -33,8 +33,8 @@ y[0:5]
 #train / test split training set
 X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
 print('~~~~~~~test shape~~~~~~~~')
-print ('Train  set:', X_train.shape,  y_train.shape)
-print ('Test  set:', X_test.shape,  y_test.shape)
+print ('Train  fullset:', X_train.shape,  y_train.shape)
+print ('Test  fullset:', X_test.shape,  y_test.shape)
 
 #CLASSIFICATION
 #training
@@ -49,20 +49,13 @@ yhat[0:5]
 
 
 #Accuracy Evaluation
-print("Train set 4 Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
-print("Test set 4 Accuracy: ", metrics.accuracy_score(y_test, yhat))
-
-
-
-
-
-
-
+print("Train set 4 neighbor prediction  Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
+print("Test set 4 neighbor Accuracy: ", metrics.accuracy_score(y_test, yhat))
 
 
 print("//////PRACTICE/////")
 X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
-k = 5
+k = 1
 #Train Model and Predict  
 neigh = KNeighborsClassifier(n_neighbors = k).fit(X_train,y_train)
 
@@ -72,35 +65,36 @@ yhat[0:5]
 
 
 #Accuracy Evaluation
-print("Train set tuned:5 Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
-print("Test set tuned:5 Accuracy: ", metrics.accuracy_score(y_test, yhat))
+print("Train set :5 neighbor predicted Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
+print("Test set :5 neighbor test  Accuracy: ", metrics.accuracy_score(y_test, yhat))
 
-print('now tuning')
+print('!!!!!!!!!!!!!!now tuning!!!!!!!!!!')
 from sklearn.model_selection import GridSearchCV
 
 # Split your data into features (X) and target (y) 
-X = df.drop('target_column''region', 'tenure','age', 'marital', 'address', 'income', 'ed', 'employ','retire', 'gender', 'reside', axis=1)  # replace 'target_column' with your actual target column
+X = df.drop(['region', 'tenure','age', 'marital', 'address', 'income', 'ed', 'employ','retire', 'gender', 'reside'], axis=1)  # replace 'target_column' with your actual target column
 y = df['custcat']
 
 # Split your data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Instantiate the KNN model
-neigh = KNeighborsClassifier(n_neighbors=5)
+neigh = KNeighborsClassifier(n_neighbors=1)
 neigh.fit(X_train, y_train)
 
 # Predict
 yhat = neigh.predict(X_test)
 
 # Accuracy Evaluation
-print("Train set tuned:5 Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
-print("Test set tuned:5 Accuracy: ", metrics.accuracy_score(y_test, yhat))
+print("Train set suggested (1) neighbor  Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
+print("Test set suggested (1) Accuracy: ", metrics.accuracy_score(y_test, yhat))
 
 # Now tuning
 param_grid = {'n_neighbors': list(range(1, 31))}
 grid = GridSearchCV(neigh, param_grid, cv=10, scoring='accuracy')
 grid.fit(X_train, y_train)
 
+print('tuned: ')
 # Print the best parameters and the corresponding score
 print("Best parameters: ", grid.best_params_)
-print("Best cross-validation score: ", grid.best_score_)
+print("Best cross-validation score possible: ", grid.best_score_)
