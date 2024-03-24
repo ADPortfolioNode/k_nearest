@@ -78,8 +78,7 @@ print("Test set tuned:5 Accuracy: ", metrics.accuracy_score(y_test, yhat))
 print('now tuning')
 from sklearn.model_selection import GridSearchCV
 
-# Split your data into features (X) and target (y)
- = df[[]] .values  
+# Split your data into features (X) and target (y) 
 X = df.drop('target_column''region', 'tenure','age', 'marital', 'address', 'income', 'ed', 'employ','retire', 'gender', 'reside', axis=1)  # replace 'target_column' with your actual target column
 y = df['custcat']
 
