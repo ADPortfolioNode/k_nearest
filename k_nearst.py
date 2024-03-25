@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn import metrics
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
 
 
 #load data
@@ -54,7 +55,7 @@ print("Test set 4 neighbor Accuracy: ", metrics.accuracy_score(y_test, yhat))
 
 
 print("//////PRACTICE/////")
-X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42)
 k = 1
 #Train Model and Predict  
 neigh = KNeighborsClassifier(n_neighbors = k).fit(X_train,y_train)
@@ -69,7 +70,6 @@ print("Train set :5 neighbor predicted Accuracy: ", metrics.accuracy_score(y_tra
 print("Test set :5 neighbor test  Accuracy: ", metrics.accuracy_score(y_test, yhat))
 
 print('!!!!!!!!!!!!!!now tuning!!!!!!!!!!')
-from sklearn.model_selection import GridSearchCV
 
 # Split your data into features (X) and target (y) 
 X = df.drop(['region', 'tenure','age', 'marital', 'address', 'income', 'ed', 'employ','retire', 'gender', 'reside'], axis=1)  # replace 'target_column' with your actual target column
@@ -94,7 +94,7 @@ param_grid = {'n_neighbors': list(range(1, 31))}
 grid = GridSearchCV(neigh, param_grid, cv=10, scoring='accuracy')
 grid.fit(X_train, y_train)
 
-print('tuned: ')
+print('tuned: ',X)
 # Print the best parameters and the corresponding score
 print("Best parameters: ", grid.best_params_)
 print("Best cross-validation score possible: ", grid.best_score_)
