@@ -94,7 +94,7 @@ param_grid = {'n_neighbors': list(range(1, 31))}
 grid = GridSearchCV(neigh, param_grid, cv=10, scoring='accuracy')
 grid.fit(X_train, y_train)
 
-print('tuned: ',X)
+print('tuned:' ',X')
 # Print the best parameters and the corresponding score
 print("Best parameters: ", grid.best_params_)
 print("Best cross-validation score possible: ", grid.best_score_)
