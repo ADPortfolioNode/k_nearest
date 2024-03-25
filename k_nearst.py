@@ -56,7 +56,7 @@ print("Test set 4 neighbor Accuracy: ", metrics.accuracy_score(y_test, yhat))
 
 print("//////PRACTICE/////")
 X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=42)
-k = 1
+k = 5
 #Train Model and Predict  
 neigh = KNeighborsClassifier(n_neighbors = k).fit(X_train,y_train)
 
